@@ -1,0 +1,572 @@
+/* =====================
+   RESET & BASE
+===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+@import 'colors.css';
+
+body {
+  font-family: var(--font);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =====================
+   LOGIN SCREEN
+===================== */
+#login {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  padding: 12px;
+}
+
+.login-card {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 440px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-logo {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+#login .login-card h1 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+
+.login-card p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+#loginBtn {
+  width: 100%;
+  padding: 12px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#loginBtn:hover {
+  background: var(--accent-hover);
+}
+
+/* Guest entry */
+.guest {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.guest p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.guest input {
+  padding: 10px 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.guest input:focus {
+  border-color: var(--accent);
+}
+
+.guest input::placeholder {
+  color: var(--text-muted);
+}
+
+.guest button {
+  padding: 10px;
+  background: transparent;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.guest button:hover {
+  background: var(--bg-input);
+  color: var(--text-primary);
+}
+#tnc {
+  position: absolute;
+  bottom: 20px;
+  padding: 12px;
+}
+#tnc a{
+  text-decoration: none;
+  color: white;
+}
+/* =====================
+   MAIN APP LAYOUT
+===================== */
+#App {
+  display: flex;
+  height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* =====================
+   SIDEBAR
+===================== */
+#sidebar {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+@media(max-width:730px) {
+  #sidebar {
+    min-width: 100vw;
+  }
+  #chatArea {
+    min-width: 100vw !important;
+  }
+}
+
+.sidebarHeader {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.app-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+}
+.app-title img {
+  height: 32px;
+  margin-right: 4px;
+}
+#logout-btn {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+}
+
+#logout-btn:hover {
+  color: var(--danger);
+  background-color: var(--bg-input);
+}
+
+/* User info row */
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  color: #a5b4fc;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+#user-display-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Rooms section */
+.roomsSection {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px;
+}
+
+.roomsSection::-webkit-scrollbar {
+  width: 4px;
+}
+
+.roomsSection::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 99px;
+}
+
+.roomsSection input {
+  width: 100%;
+  font-size: 16px;
+  margin-top: 4px;
+  margin-bottom: 24px;
+  align-self: center;
+  z-index: 20;
+  padding: 12px;
+  padding-left: 20px;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  border-radius: var(--radius-xl);
+  outline: none;
+}
+
+#rooms {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* .room-item is added dynamically by ui.js on each <li> */
+.room-item {
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.room-item::before {
+  content: '# ';
+  color: var(--text-muted);
+}
+
+.room-item:hover {
+  background: var(--bg-input);
+  color: var(--text-primary);
+}
+
+.room-item.active {
+  background: var(--accent-light);
+  color: #a5b4fc;
+  font-weight: 500;
+}
+
+.room-item.active::before {
+  color: #a5b4fc;
+}
+
+/* Create room */
+.createRoom {
+  padding: 12px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.createRoom input {
+  flex: 1;
+  padding: 12px 20px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  color: var(--text-primary);
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.createRoom input:focus {
+  border-color: var(--accent);
+}
+
+.createRoom input::placeholder {
+  color: var(--text-muted);
+}
+
+.createRoom button {
+  padding: 8px 12px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.createRoom button:hover {
+  background: var(--accent-hover);
+}
+
+/* =====================
+   CHAT AREA
+===================== */
+#chatArea {
+  width: 100%;
+  min-width: 460px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#chatHeader {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  background-color: var(--bg-secondary);
+  /* border-bottom: 1px solid var(--border); */
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+#chatHeader p{
+  font-size: 16px;
+}
+#chatHeader button{
+  background-color: var(--bg-bubble-theirs);
+  outline: none;
+  border: none;
+  color: var(--text-muted);
+  padding:8px 12px;
+  border-radius: var(--radius-md);
+  margin-right: 12px;
+}
+@media(min-width: 760px){
+  #chatHeader button{
+    display: none;
+  }
+}
+/* =====================
+   MESSAGES CONTAINER
+===================== */
+#msgContainer {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 20px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#msgContainer::-webkit-scrollbar {
+  width: 4px;
+}
+
+#msgContainer::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 99px;
+}
+
+#emptyState {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* =====================
+   MESSAGE BUBBLES
+===================== */
+.message-bubble {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  max-width: 65%;
+}
+
+.message-bubble.mine {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.message-bubble.theirs {
+  align-self: flex-start;
+}
+
+.bubble-text {
+  padding: 10px 14px;
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+  line-height: 1.5;
+  word-break: break-word; 
+  /* word break will break the word based on word overflows */
+}
+
+.message-bubble.mine .bubble-text {
+  background: var(--bg-bubble-mine);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.message-bubble.theirs .bubble-text {
+  background: var(--bg-bubble-theirs);
+  color: var(--text-primary);
+  border-bottom-left-radius: 4px;
+}
+
+.bubble-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 3px;
+}
+
+.message-bubble.mine .bubble-meta {
+  text-align: right;
+}
+
+.avatar-small {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  color: #a5b4fc;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-bottom: 2px;
+}
+
+/* =====================
+   INPUT BAR
+===================== */
+#inputBar {
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 16px;
+  flex-shrink: 0;
+  background: transparent;
+}
+
+#msgInput {
+  flex: 1;
+  padding: 16px 20px;
+  margin: 12px;
+  margin-right:0px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: var(--font);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#msgInput:focus {
+  border-color: var(--accent);
+}
+
+#msgInput::placeholder {
+  color: var(--text-muted);
+}
+
+#msgInput:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+#sendBtn {
+  padding: 16px 22px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.1s;
+}
+
+#sendBtn:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+#sendBtn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+#sendBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (max-width: 760px) {
+  #inputBar {
+    padding: 0 8px;
+  }
+}

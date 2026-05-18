@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Vencord</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="colors.css" />
+    <link rel="icon" href="assets/favicon.png" />
+</head>
+<body>
+
+<!----------LOGIN SCREEN ---------->
+
+<div id="login">
+    <div class="login-card">
+        <div class="login-logo">
+            <span><img src="assets/favicon.png"></span>
+        </div>
+        <h1>Vencord</h1>
+        <p>Sign in to join the conversation</p>
+        <button id="loginBtn">
+            <!-- Google icon SVG can go here -->
+            Sign in with Google
+        </button>
+        <!-- Fallback: guest name entry -->
+        <div class="guest">
+            <p>Or continue as guest</p>
+            <input type="text" id="guest-name-input" placeholder="Enter your name" maxlength="30" />
+            <button>Continue</button>
+        </div>
+    </div>
+    <p id="tnc">By signing up you are agreeing to our <a href="tnc.html">terms and conditions</a></p>
+</div>
+<!-- --------END LOGIN SCREEN ---------->
+
+
+<!-- --------MAIN APP (hidden until logged in) ---------->
+<div id="App" class="hidden">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside id="sidebar">
+    <!-- App header -->
+        <div class="sidebarHeader">
+            <span class="app-title"><img src="assets/favicon.png">Vencord</span>
+            <button id="logout-btn" title="Logout">Logout</button>
+        </div>
+
+        <!-- Logged-in user info -->
+        <div class="userInfo">
+            <div class="avatar" id="user-avatar">?</div>
+            <span id="user-display-name">Username</span>
+        </div>
+
+        <!-- Room list -->
+        <div class="roomsSection">
+            <input type="search" placeholder="Search for a room" />
+            <ul id="rooms">
+            <!-- Rooms will be injected here by ui.js -->
+            <!-- Example structure (for reference, will be dynamic):
+                add class="room-item" to each <li> and 
+                class="active" to whichever room is selected
+                # general
+            </li>
+            -->
+            </ul>
+        </div>
+
+        <!-- Create new room -->
+        <div class="createRoom">
+            <input type="text" placeholder="New room name" maxlength="30" />
+            <button>+ Create</button>
+        </div>
+    </aside>
+    <!-- ===== END SIDEBAR ===== -->
+
+
+    <!-- ===== CHAT AREA ===== -->
+    <main id="chatArea">
+        <div id="chatHeader">
+            <button id="backBtn"><</button>
+            <p></p>
+            <!-- Optional: room member count, settings icon etc -->
+        </div>
+
+        <!-- Messages container -->
+        <div id="msgContainer">
+            <!-- structure
+
+            <div class="message-bubble mine">
+            <div class="bubble-text">Hey everyone!</div>
+            <span class="bubble-meta">You · 10:42 AM</span>
+            </div>
+
+            Sent by someone else:
+            <div class="message-bubble theirs">
+            <div class="avatar-small">AK</div>
+            <div>
+                <div class="bubble-text">Hello!</div>
+                <span class="bubble-meta">Alex · 10:43 AM</span>
+            </div>
+            </div>
+            -->
+
+            <!-- Empty state (shown when no room selected) -->
+            <div id="emptyState">
+            <p>Select a room to start chatting</p>
+            </div>
+        </div>
+
+        <!-- Typing indicator -->
+        <div id="typing" class="hidden">
+            <span>$(USER) is typing...</span>
+        </div>
+
+        <!-- Message input bar -->
+        <div id="inputBar">
+            <input
+            type="text"
+            id="msgInput"
+            placeholder="Type a message..."
+            maxlength="500"
+            autocomplete="off"
+            disabled
+            />
+            <button id="sendBtn" disabled>Send</button>
+        </div>
+    </main>
+    <!-- ===== END CHAT AREA ===== -->
+
+</div>
+<!-- --------END MAIN APP ---------->
+
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
