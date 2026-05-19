@@ -134,10 +134,11 @@ body {
   position: absolute;
   bottom: 20px;
   padding: 12px;
+  color:var(--text-secondary);
 }
 #tnc a{
   text-decoration: none;
-  color: white;
+  color: var(--text-primary);
 }
 /* =====================
    MAIN APP LAYOUT
@@ -272,6 +273,7 @@ body {
   color: var(--text-secondary);
   border-radius: var(--radius-xl);
   outline: none;
+  position: relative;
 }
 
 #rooms {

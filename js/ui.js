@@ -11,7 +11,7 @@ function showMsg(msg, user){
 
     message.innerHTML = `
     <div class="bubble-text">${msg.text}</div>
-    <span class="bubble-meta">${msg.sender} · ${formatTime(msg.timestamp)}</span>
+    <span class="bubble-meta">${msg.sender}_${msg.uid.replace(/\D/g, '').slice(0, 6)} · ${formatTime(msg.timestamp)}</span>
     `
     document.getElementById('msgContainer').appendChild(message)
     scrollToBottom()
@@ -29,6 +29,17 @@ function roomList(rooms, onClick){
         li.dataset.id = room.id
         li.addEventListener('click', () => onClick(room))
         list.appendChild(li)
+    })
+    const search = document.querySelector('.roomsSection input')
+    search.addEventListener('input', () => {
+    const filter = search.value.toLowerCase().trim()
+    document.querySelectorAll('.room-item').forEach(li => {
+            if (li.textContent.toLowerCase().includes(filter)) {
+            li.style.display = 'block'
+            } else {
+            li.style.display = 'none'
+            }
+        })
     })
 }
 

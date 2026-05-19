@@ -4,6 +4,9 @@ function mkRoom(name){
         name:name,
         createdAt:firebase.firestore.FieldValue.serverTimestamp()
     })
+    if (isGuest) {
+        
+    }
 }
 // sending a msg
 function sendMsg(roomID, user, text){
@@ -15,15 +18,19 @@ function sendMsg(roomID, user, text){
     })
 }
 // updating sidebar with new rooms,populating
-function nav_roomUpdate(doThis) {
+function roomListener(callback) {
     /* the onSnapshot function basically tells firestore to keep watching
     of the current data in the room, whenever a data (msg) update happens,
-    execute the doThis function*/
-    return db.collection('rooms').orderBy('createdAt').onSnapshot(doThis)
+    execute the dcallback function*/
+    //Every time onSnapshot fires it passes a "snapshot" to callback:
+    return db.collection('rooms').orderBy('createdAt').onSnapshot(callback)
 }
 
 // updating the msgs to the chat, user shd see prev chats
-function msg_chatUpdate(roomID, doThis){
+function msgListener(roomID, callback){
+    // this function is kinda special
+    // whenever the data changes the onsnapshot exexutes the callback
     return db.collection('rooms').doc(roomID).collection('messages')
-    .orderBy('timestamp').onSnapshot(doThis)
+    .orderBy('timestamp').onSnapshot(callback)
+    // returns the function to end the current listener
 }

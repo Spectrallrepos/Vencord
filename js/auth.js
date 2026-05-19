@@ -1,5 +1,6 @@
 // js/auth.js
 let currUser = null
+let isGuest = false
 
 const provider = new firebase.auth.GoogleAuthProvider()
 
