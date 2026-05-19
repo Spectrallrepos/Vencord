@@ -46,13 +46,18 @@ function showMember(members) {
     const list = document.querySelector('#members ul')
     list.innerHTML = ''
     let guest
+    let status
     members.forEach((member) => {
         if(member.uid.includes('guest')) {
             guest = 'guest'
         }
         else guest = 'Authenticated'
+        if (member.isOnline)
+            status = '🟢'
+        else status = '⚫'
+
         const li = document.createElement('li')
-        li.innerHTML = `<p>${member.name}_${member.uid.replace(/\D/g, '').slice(0, 6)} (${guest}) </p><span>joined At:${member.createdAt.toDate().toLocaleDateString()}</snap>`
+        li.innerHTML = `<p>${status} ${member.name}_${member.uid.replace(/\D/g, '').slice(0, 6)} (${guest}) </p><span>joined At:${member.createdAt.toDate().toLocaleDateString()}</snap>`
         if(guest === 'guest') {
             const p = li.querySelector('p')
             p.style.color = 'var(--text-secondary)'

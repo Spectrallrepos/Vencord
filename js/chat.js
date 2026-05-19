@@ -42,8 +42,8 @@ function memberList(roomID, callback){
     .orderBy('createdAt').onSnapshot(callback)
 }
 // setting typing status
-function setTyping(roomID, user, isTyping) {
-  db.collection('rooms').doc(roomID).collection('members').doc(user.uid).set({
-    isTyping: isTyping
-  }, { merge: true })
-}
+// function setTyping(roomID, user, isTyping) {
+//   db.collection('rooms').doc(roomID).collection('members').doc(user.uid).set({
+//     isTyping: isTyping
+//   }, { merge: true })
+// }

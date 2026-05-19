@@ -1,7 +1,7 @@
 let currRoomID = null
 let unsubMsgs = null
 let unsubMembers = null
-let typeTiemout = null
+let typeTimeout = null
 
 // showing the app and login page
 
@@ -31,9 +31,8 @@ function onClick(room){
 
   //set previous room offline
     if (currRoomID) {
-  db.collection('rooms').doc(currRoomID).collection('members').doc(currUser.uid).set({
+    db.collection('rooms').doc(currRoomID).collection('members').doc(currUser.uid).set({
       isOnline: false,
-      isTyping: false
     }, { merge: true })
   }
 
@@ -41,6 +40,9 @@ function onClick(room){
   currRoomID = room.id
   // set active room
   activeRoom(currRoomID, room.name)
+  db.collection('rooms').doc(currRoomID).collection('members').doc(currUser.uid).set({
+      isOnline: true,
+    }, { merge: true })
 
   // updating the member list
   if (unsubMembers) unsubMembers()
@@ -79,14 +81,14 @@ function onClick(room){
 }
 
 // setting the typing context
-document.getElementById('msgInput').addEventListener('input', () => {
-  if (!currRoomID) return
-  setTyping(currRoomID, currUser, true)
-  clearTimeout(typingTimeout)
-  typingTimeout = setTimeout(() => {
-    setTyping(currRoomID, currUser, false)
-  }, 2000)
-})
+// document.getElementById('msgInput').addEventListener('input', () => {
+//   if (!currRoomID) return
+//   setTyping(currRoomID, currUser, true)
+//   clearTimeout(typingTimeout)
+//   typingTimeout = setTimeout(() => {
+//     setTyping(currRoomID, currUser, false)
+//   }, 2000)
+// })
 
 // function to send msg
 function sendCurrMsg() {
