@@ -396,10 +396,13 @@ body {
 }
 
 #chatHeader p {
-  font-size: 16px;
+  font-size: 20px;
+}
+#chatHeader:hover {
+  cursor: pointer;
 }
 
-#chatHeader button {
+.backBtn {
   background-color: var(--bg-bubble-theirs);
   outline: none;
   border: none;
@@ -408,11 +411,52 @@ body {
   border-radius: var(--radius-md);
   margin-right: 12px;
 }
-
+.backBtn:hover {
+  cursor: pointer;
+  background-color: var(--bg-secondary);
+}
 @media(min-width: 760px) {
   #chatHeader button {
     display: none;
   }
+}
+
+#members {
+  position: absolute;
+  top: var(--header-height);
+  right: 4px;
+  width: auto;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  z-index: 10;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+#memberHead {
+  display:flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-light);
+}
+#memberHead p{
+  font-size: 20px;
+}
+
+#members ul>li {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#members ul>li>p {
+  font-size: 16px;
+  color: var(--text-primary)
+}
+#members ul>li>span {
+  font-size: 12px;
+  color: var(--text-muted)
 }
 
 /* =====================

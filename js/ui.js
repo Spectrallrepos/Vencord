@@ -42,6 +42,24 @@ function roomList(rooms, onClick){
         })
     })
 }
+function showMember(members) {
+    const list = document.querySelector('#members ul')
+    list.innerHTML = ''
+    let guest
+    members.forEach((member) => {
+        if(member.uid.includes('guest')) {
+            guest = 'guest'
+        }
+        else guest = 'Authenticated'
+        const li = document.createElement('li')
+        li.innerHTML = `<p>${member.name}_${member.uid.replace(/\D/g, '').slice(0, 6)} (${guest}) </p><span>joined At:${member.createdAt.toDate().toLocaleDateString()}</snap>`
+        if(guest === 'guest') {
+            const p = li.querySelector('p')
+            p.style.color = 'var(--text-secondary)'
+        }
+        list.appendChild(li)
+    })
+}
 
 // highlighting selected room
 function activeRoom(roomID, roomName){
@@ -52,6 +70,16 @@ function activeRoom(roomID, roomName){
     const p = document.createElement('p')
     p.textContent = '# ' + roomName
     header.appendChild(p)
+
+// member list
+    const members = document.querySelector('#members')
+    p.addEventListener('click', () => {
+        members.classList.remove('hidden')
+    })
+    const back = document.querySelector('#memberHead button')
+    back.addEventListener('click', () => {
+        members.classList.add('hidden')
+    })
 }
 
 //scroll fn
@@ -61,7 +89,7 @@ function scrollToBottom() {
 }
 
 
-document.getElementById('backBtn').addEventListener('click', () =>{
+document.querySelector('#chatHeader button').addEventListener('click', () =>{
     document.getElementById('App').scrollLeft = -1
 })
 

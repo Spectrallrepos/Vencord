@@ -14,6 +14,11 @@ function loginWithGoogle() {
 document.getElementById('loginBtn').addEventListener('click',loginWithGoogle)
 
 function logout() {
+  db.collection('rooms').doc(currRoomID).collection('members').doc(currUser.uid).set({
+    isOnline: false,
+    isTyping: false
+  }, { merge: true })
+  
   if (isGuest){
     isGuest = false
     currUser = null

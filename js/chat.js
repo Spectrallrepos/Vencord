@@ -1,4 +1,6 @@
 // creating rooms
+let isTyping=false
+
 function mkRoom(name){
     if (isGuest) return
     db.collection('rooms').doc(name).set({
@@ -15,6 +17,7 @@ function sendMsg(roomID, user, text){
         timestamp:firebase.firestore.FieldValue.serverTimestamp()
     })
 }
+
 // updating sidebar with new rooms,populating
 function roomListener(callback) {
     /* the onSnapshot function basically tells firestore to keep watching
@@ -31,4 +34,16 @@ function msgListener(roomID, callback){
     return db.collection('rooms').doc(roomID).collection('messages')
     .orderBy('timestamp').onSnapshot(callback)
     // returns the function to end the current listener
+}
+
+function memberList(roomID, callback){
+    // we need to now create a collection of users in a room, check their status
+    return db.collection('rooms').doc(roomID).collection('members')
+    .orderBy('createdAt').onSnapshot(callback)
+}
+// setting typing status
+function setTyping(roomID, user, isTyping) {
+  db.collection('rooms').doc(roomID).collection('members').doc(user.uid).set({
+    isTyping: isTyping
+  }, { merge: true })
 }
