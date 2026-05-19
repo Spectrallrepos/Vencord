@@ -8,6 +8,9 @@ function showApp(displayName) {
   document.getElementById('App').classList.remove('hidden')
   document.getElementById('user-display-name').textContent = displayName
   document.getElementById('user-avatar').textContent = displayName[0].toUpperCase()
+  if (isGuest) {
+    document.querySelector('.createRoom').style.display = 'none'
+  }
 }
 
 function showLogin() {
@@ -18,6 +21,7 @@ function showLogin() {
   document.querySelector('#chatHeader p').innerHTML = ''
   document.getElementById('inputBar').disabled = true
   if (unsubMsgs) unsubMsgs()
+  document.querySelector('.createRoom').style.display = 'flex'
 }
 
 // selecting a room 

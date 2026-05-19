@@ -1,12 +1,10 @@
 // creating rooms
 function mkRoom(name){
+    if (isGuest) return
     db.collection('rooms').doc(name).set({
         name:name,
         createdAt:firebase.firestore.FieldValue.serverTimestamp()
     })
-    if (isGuest) {
-        
-    }
 }
 // sending a msg
 function sendMsg(roomID, user, text){
