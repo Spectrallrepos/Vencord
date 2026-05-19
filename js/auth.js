@@ -70,4 +70,4 @@ document.querySelector('.guest button').addEventListener('click', () => {
 // Logout button
 document.getElementById('logout-btn').addEventListener('click', () => {
   logout()
-})
+}) //
