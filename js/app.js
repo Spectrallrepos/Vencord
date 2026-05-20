@@ -6,6 +6,7 @@ let typeTimeout = null
 // showing the app and login page
 
 function showApp(displayName) {
+  if (!displayName) return 
   document.getElementById('login').classList.add('hidden')
   document.getElementById('App').classList.remove('hidden')
   document.getElementById('user-display-name').textContent = displayName

@@ -2,7 +2,7 @@
 
 // showing msg in the chat
 function showMsg(msg, user){
-    // creating markup for ts
+    // creating markup for ts 
     const message = document.createElement('div')
     message.classList.add('message-bubble')
     if (msg.uid === user.uid) message.classList.add('mine')
@@ -57,7 +57,8 @@ function showMember(members) {
         else status = '⚫'
 
         const li = document.createElement('li')
-        li.innerHTML = `<p>${status} ${member.name}_${member.uid.replace(/\D/g, '').slice(0, 6)} (${guest}) </p><span>joined At:${member.createdAt.toDate().toLocaleDateString()}</snap>`
+        const joinedAt = member.createdAt ? member.createdAt.toDate().toLocaleDateString() : '...'
+        li.innerHTML = `<p>${status} ${member.name}_${member.uid.replace(/\D/g, '').slice(0, 6)} (${guest}) </p><span>joined At:${joinedAt}</span>`
         if(guest === 'guest') {
             const p = li.querySelector('p')
             p.style.color = 'var(--text-secondary)'
@@ -89,8 +90,8 @@ function activeRoom(roomID, roomName){
 
 //scroll fn
 function scrollToBottom() {
-  const container = document.getElementById('msgContainer')
-  container.scrollTop = container.scrollHeight
+    const container = document.getElementById('msgContainer')
+    container.scrollTop = container.scrollHeight
 }
 
 
@@ -99,7 +100,7 @@ document.querySelector('#chatHeader button').addEventListener('click', () =>{
 })
 
 function formatTime(timestamp) {
-  if (!timestamp) return ''
-  const date = timestamp.toDate()
-  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    if (!timestamp) return ''
+    const date = timestamp.toDate()
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 }

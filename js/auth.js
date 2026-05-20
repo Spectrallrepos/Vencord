@@ -34,7 +34,8 @@ function onAuthChange(callback) {
 
 // Firebase login/auth state change, load the app
 onAuthChange((user) => {
-  if (user) {
+  if (isGuest) return
+  if (user && user.displayName) {
     currUser = user
     showApp(user.displayName)
     startApp()
@@ -56,14 +57,17 @@ document.querySelector('.guest button').addEventListener('click', () => {
     return
   }
   if (name) {
-    // loading the app for guests
-    isGuest=true // for room creation permission
-    currUser = {
-      displayName: name,
-      uid: 'guest_' + Math.random().toString(36).substr(2, 9)  // fake unique uid
-    }
-    showApp(name)
-    startApp()
+    isGuest = true
+    firebase.auth().signInAnonymously().then((result) => {
+      currUser = {
+        displayName: name,
+        uid: result.user.uid
+      }
+      showApp(name)
+      startApp()
+    }).catch((err) => {
+      console.error("Guest login error:", err.message)
+    })
   }
 })
 
