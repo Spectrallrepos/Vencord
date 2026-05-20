@@ -273,7 +273,7 @@ body {
   margin-top: 4px;
   margin-bottom: 24px;
   align-self: center;
-  z-index: 20;
+  z-index: 10;
   padding: 12px;
   padding-left: 20px;
   background-color: var(--bg-input);
@@ -423,6 +423,7 @@ body {
 
 #members {
   position: absolute;
+  z-index: 100;
   top: var(--header-height);
   right: 4px;
   width: auto;
