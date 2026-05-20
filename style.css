@@ -14,7 +14,7 @@ body {
   font-family: var(--font);
   background: var(--bg-primary);
   color: var(--text-primary);
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -26,7 +26,7 @@ body {
    LOGIN SCREEN
 ===================== */
 #login {
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -149,7 +149,7 @@ body {
 ===================== */
 #App {
   display: flex;
-  height: 100vh;
+  height: 100dvh;
   overflow-x: auto;
   overflow-y: hidden;
 }
@@ -164,7 +164,7 @@ body {
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -378,7 +378,7 @@ body {
   min-width: 460px;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -425,7 +425,7 @@ body {
   position: absolute;
   z-index: 100;
   top: var(--header-height);
-  right: 4px;
+  right: 0px;
   width: auto;
   background: var(--bg-secondary);
   border: 1px solid var(--border-light);
