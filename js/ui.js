@@ -21,7 +21,7 @@ function showMsg(msg, user){
 function roomList(rooms, onClick){
     // show room list and on clicking on one of them, show it on chat
     const list = document.getElementById('rooms')
-    list.innerHTML = ''
+    list.innerHTML = '' //remmove the loading text
     rooms.forEach(room => {
         const li = document.createElement('li')
         li.classList.add('room-item')
@@ -48,10 +48,10 @@ function showMember(members) {
     let guest
     let status
     members.forEach((member) => {
-        if(member.uid.includes('guest')) {
+        if(member.uid.includes('guest'))
             guest = 'guest'
-        }
         else guest = 'Authenticated'
+
         if (member.isOnline)
             status = '🟢'
         else status = '⚫'

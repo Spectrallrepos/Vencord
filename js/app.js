@@ -57,16 +57,16 @@ function onClick(room){
   if (s.value) s.value = ''
   document.querySelectorAll('.room-item').forEach(li => li.style.display = 'block')
 
-// enable texting
+  // enable texting
   document.getElementById('msgInput').disabled = false
   document.getElementById('sendBtn').disabled = false
 
-// clear msgs of prev room, clear any search value if it exists
+  // clear msgs of prev room, clear any search value if it exists
   document.getElementById('msgContainer').innerHTML = ''
-// rm the old snapshot, basically to rm the snapshot working on old room
+  // rm the old snapshot, basically to rm the snapshot working on old room
   if (unsubMsgs) unsubMsgs()
-// unsubmsgs stores the following function
-// actually, it stores the object returned
+  // unsubmsgs stores the following function
+  // actually, it stores the object returned
   unsubMsgs = msgListener(currRoomID, (snapshot) => {
     /* the snapshot contains all msgs, */
     snapshot.docChanges().forEach(element => {
@@ -113,12 +113,11 @@ function sendCurrMsg() {
 function startApp() {
   // updating the room list
   roomListener((snapshot) => {
-    // the snapshot(object)
     const rooms = snapshot.docs.map(doc => ({ id:doc.id, ...doc.data() }))
-    // console.log(rooms)
     roomList(rooms, onClick)
   })
   document.getElementById('App').scrollLeft=-1
+
   // creating a room
   const input = document.querySelector('.createRoom input')
   document.querySelector('.createRoom button').addEventListener('click', () => {
@@ -136,6 +135,7 @@ function startApp() {
         input.value = ''
       }
   })
+
   // sending a msg
   document.getElementById('sendBtn').addEventListener('click', sendCurrMsg)
   document.getElementById('msgInput').addEventListener('keydown', (e) => {

@@ -34,11 +34,11 @@ function onAuthChange(callback) {
 
 // Firebase login/auth state change, load the app
 onAuthChange((user) => {
-  if (isGuest) return
+  if (isGuest) return //anonymous users should not be affected by auth state changes
   if (user && user.displayName) {
     currUser = user
-    showApp(user.displayName)
     startApp()
+    showApp(user.displayName)
   } else {
     showLogin()
   }
@@ -63,8 +63,8 @@ document.querySelector('.guest button').addEventListener('click', () => {
         displayName: name,
         uid: result.user.uid
       }
-      showApp(name)
       startApp()
+      showApp(name)
     }).catch((err) => {
       console.error("Guest login error:", err.message)
     })
