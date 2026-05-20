@@ -8,7 +8,6 @@ function showMsg(msg, user){
     if (msg.uid === user.uid) message.classList.add('mine')
     else message.classList.add('theirs')
 
-
     message.innerHTML = `
     <div class="bubble-text">${msg.text}</div>
     <span class="bubble-meta">${msg.sender}_${msg.uid.replace(/\D/g, '').slice(0, 6)} · ${formatTime(msg.timestamp)}</span>

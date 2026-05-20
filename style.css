@@ -41,8 +41,8 @@ body {
   border: 2px solid var(--border-light);
   border-radius: var(--radius-xl);
   padding: 48px 40px;
-  width: 100%;
-  max-width: 440px;
+  width: 90%;
+  max-width: 360px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -134,7 +134,7 @@ body {
 
 #tnc {
   position: absolute;
-  bottom: 20px;
+  bottom: 8px;
   padding: 12px;
   color: var(--text-secondary);
 }
@@ -499,7 +499,6 @@ body {
   gap: 8px;
   max-width: 65%;
 }
-
 .message-bubble.mine {
   align-self: flex-end;
   flex-direction: row-reverse;
@@ -509,13 +508,32 @@ body {
   align-self: flex-start;
 }
 
+@media(max-width: 500px) {
+  .message-bubble {
+    max-width: 90%;
+    width: fit-content;
+    flex-direction: column;
+  }
+  .message-bubble.mine {
+    align-self: flex-end;
+    flex-direction: column;
+    gap: 0px;
+  }
+  .message-bubble.theirs {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0px;
+  }
+}
+
 .bubble-text {
   padding: 10px 14px;
   border-radius: var(--radius-lg);
   font-size: 14px;
   line-height: 1.5;
-  word-break: break-word;
-  /* word break will break the word based on word overflows */
+  overflow-wrap: break-word;
+  word-break: normal;
+  white-space: normal;
 }
 
 .message-bubble.mine .bubble-text {

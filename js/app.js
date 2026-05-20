@@ -46,7 +46,7 @@ function onClick(room){
     }, { merge: true })
 
   // updating the member list
-  if (unsubMembers) unsubMembers()
+  if (unsubMembers) unsubMembers() //rm old list
   unsubMembers = memberList(currRoomID, (snapshot) => {
     const members = snapshot.docs.map(doc => doc.data())
     showMember(members)
