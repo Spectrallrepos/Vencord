@@ -25,7 +25,7 @@ function roomList(rooms, onClick){
         const li = document.createElement('li')
         li.classList.add('room-item')
         li.textContent = room.name
-        li.dataset.id = room.id
+        li.dataset.id = room.id // is a attribute, used later to check room belonging
         li.addEventListener('click', () => onClick(room))
         list.appendChild(li)
     })
@@ -50,8 +50,9 @@ function showMember(members) {
         if(member.uid.includes('guest'))
             guest = 'guest'
         else guest = 'Authenticated'
-
-        if (member.isOnline)
+        const now = new Date()
+        const isOnline = member.lastSeen && (now - member.lastSeen.toDate()) < 45000
+        if (isOnline)
             status = '🟢'
         else status = '⚫'
 
@@ -69,14 +70,15 @@ function showMember(members) {
 // highlighting selected room
 function activeRoom(roomID, roomName){
     document.querySelectorAll('.room-item').forEach(li=> li.classList.remove('active'))
-    const item = document.querySelector(`[data-id="${roomID}"]`)
+    const item = document.querySelector(`[data-id="${roomID}"]`) //selects the li
+
     if (item) item.classList.add('active')
     const header = document.getElementById('chatHeader')
     const p = document.createElement('p')
     p.textContent = '# ' + roomName
     header.appendChild(p)
 
-// member list
+// member list toggle
     const members = document.querySelector('#members')
     p.addEventListener('click', () => {
         members.classList.remove('hidden')

@@ -1,10 +1,10 @@
-// creating rooms
-let isTyping=false
+// creating rooms, updating the chats
+// let isTyping=false
 
 function mkRoom(name){
     if (isGuest) return
     db.collection('rooms').doc(name).set({
-        name:name,
+        name:name, //to keep names unique
         createdAt:firebase.firestore.FieldValue.serverTimestamp()
     })
 }

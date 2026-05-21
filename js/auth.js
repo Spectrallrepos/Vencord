@@ -1,5 +1,5 @@
 // js/auth.js
-let currUser = null
+let currUser = null //an object storing username, uid, createdAt, etc
 let isGuest = false
 
 const provider = new firebase.auth.GoogleAuthProvider()
@@ -14,11 +14,6 @@ function loginWithGoogle() {
 document.getElementById('loginBtn').addEventListener('click',loginWithGoogle)
 
 function logout() {
-  if (currRoomID)
-    db.collection('rooms').doc(currRoomID).collection('members').doc(currUser.uid).set({
-      isOnline: false,
-    }, { merge: true })
-
   if (isGuest){
     isGuest = false
     currUser = null
@@ -33,6 +28,8 @@ function onAuthChange(callback) {
 }
 
 // Firebase login/auth state change, load the app
+// stores user info in local db or cache, this fn looks for that
+// then auto logs in
 onAuthChange((user) => {
   if (isGuest) return //anonymous users should not be affected by auth state changes
   if (user && user.displayName) {
@@ -61,7 +58,8 @@ document.querySelector('.guest button').addEventListener('click', () => {
     firebase.auth().signInAnonymously().then((result) => {
       currUser = {
         displayName: name,
-        uid: result.user.uid
+        isGuest:true,
+        uid: 'guest_'+ result.user.uid
       }
       startApp()
       showApp(name)

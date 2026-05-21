@@ -1,12 +1,11 @@
 let currRoomID = null
 let unsubMsgs = null
 let unsubMembers = null
-let typeTimeout = null
+// let typeTimeout = null
 
 // showing the app and login page
 
 function showApp(displayName) {
-  if (!displayName) return 
   document.getElementById('login').classList.add('hidden')
   document.getElementById('App').classList.remove('hidden')
   document.getElementById('user-display-name').textContent = displayName
@@ -29,24 +28,17 @@ function showLogin() {
 
 // selecting a room 
 function onClick(room){
-
-  //set previous room offline
-    if (currRoomID) {
-    db.collection('rooms').doc(currRoomID).collection('members').doc(currUser.uid).set({
-      isOnline: false,
-    }, { merge: true })
-  }
-
   // changing the global var to curr id on select
   currRoomID = room.id
+  setTimeout(() => db.collection('rooms').doc(currRoomID).collection('members').doc(currUser.uid).set({
+        lastSeen: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true })
+  ,3000) // 3s timeout if the user decided to spam around rooms
   // set active room
   activeRoom(currRoomID, room.name)
-  db.collection('rooms').doc(currRoomID).collection('members').doc(currUser.uid).set({
-      isOnline: true,
-    }, { merge: true })
 
   // updating the member list
-  if (unsubMembers) unsubMembers() //rm old list
+  if (unsubMembers) unsubMembers()
   unsubMembers = memberList(currRoomID, (snapshot) => {
     const members = snapshot.docs.map(doc => doc.data())
     showMember(members)
@@ -57,16 +49,16 @@ function onClick(room){
   if (s.value) s.value = ''
   document.querySelectorAll('.room-item').forEach(li => li.style.display = 'block')
 
-  // enable texting
+// enable texting
   document.getElementById('msgInput').disabled = false
   document.getElementById('sendBtn').disabled = false
 
-  // clear msgs of prev room, clear any search value if it exists
+// clear msgs of prev room, clear any search value if it exists
   document.getElementById('msgContainer').innerHTML = ''
-  // rm the old snapshot, basically to rm the snapshot working on old room
+// rm the old snapshot, basically to rm the snapshot working on old room
   if (unsubMsgs) unsubMsgs()
-  // unsubmsgs stores the following function
-  // actually, it stores the object returned
+// unsubmsgs stores the following function
+// actually, it stores the object returned
   unsubMsgs = msgListener(currRoomID, (snapshot) => {
     /* the snapshot contains all msgs, */
     snapshot.docChanges().forEach(element => {
@@ -107,17 +99,20 @@ function sendCurrMsg() {
   // send the msg from the curr user and to this room id
   sendMsg(currRoomID, currUser, text)
   input.value = ''
+  input.disabled = true
+  setTimeout(() => input.disabled=false, 500) // to prevent spam
 }
 
 // starting the app, function to render it all
 function startApp() {
   // updating the room list
   roomListener((snapshot) => {
+    // the snapshot(object)
     const rooms = snapshot.docs.map(doc => ({ id:doc.id, ...doc.data() }))
+    // console.log(rooms)
     roomList(rooms, onClick)
   })
-  document.getElementById('App').scrollLeft=-1
-
+  document.getElementById('App').scrollLeft=-1 //mobile responsiveness
   // creating a room
   const input = document.querySelector('.createRoom input')
   document.querySelector('.createRoom button').addEventListener('click', () => {
@@ -135,10 +130,16 @@ function startApp() {
         input.value = ''
       }
   })
-
   // sending a msg
   document.getElementById('sendBtn').addEventListener('click', sendCurrMsg)
   document.getElementById('msgInput').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') sendCurrMsg()
   })
+  setInterval(() => {
+    if (currRoomID && currUser) {
+      db.collection('rooms').doc(currRoomID).collection('members').doc(currUser.uid).set({
+        lastSeen: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true })
+    }
+  }, 30000)
 }
