@@ -1,6 +1,7 @@
 let currRoomID = null
 let unsubMsgs = null
 let unsubMembers = null
+let joined = false
 // let typeTimeout = null
 
 // showing the app and login page
@@ -22,7 +23,7 @@ function showLogin() {
   document.getElementById('msgContainer').innerHTML = ''
   document.querySelector('#chatHeader p').innerHTML = ''
   document.getElementById('inputBar').disabled = true
-  if (unsubMsgs) unsubMsgs()
+  if (unsubMsgs) unsubMsgs() // rm any msg listener
   document.querySelector('.createRoom').style.display = 'flex'
 }
 
@@ -71,6 +72,10 @@ function onClick(room){
   // remove the previous room name
   const p = document.querySelector('#chatHeader p')
   if (p) p.remove()
+  db.collection('rooms').doc(currRoomID).collection('members').doc(currUser.uid).get().then(doc => {
+    if (doc.exists) 
+      joined = true
+  })
 }
 
 // setting the typing context
@@ -89,12 +94,14 @@ function sendCurrMsg() {
   const text = input.value.trim() //rm whitespace
   // if there is no text
   if (!text) return
-
-  db.collection('rooms').doc(currRoomID).collection('members').doc(currUser.uid).set({
-    name: currUser.displayName,
-    uid: currUser.uid,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-  }, { merge: true })
+  // joining a room
+  if (!joined) {
+    db.collection('rooms').doc(currRoomID).collection('members').doc(currUser.uid).set({
+      name: currUser.displayName,
+      uid: currUser.uid,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true })
+  }
   
   // send the msg from the curr user and to this room id
   sendMsg(currRoomID, currUser, text)
